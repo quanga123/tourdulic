@@ -147,6 +147,11 @@ namespace TourDulich.Areas.Admin.Controllers
                 var lh = _contextDB.LienHes.Find(id);
                 if (lh != null)
                 {
+                    if (lh.TrangThai == "Chưa xử lý")
+                    {
+                        return Json(new { success = false, message = "Liên hệ chưa xử lý nên không thể xóa." });
+                    }
+
                     _contextDB.LienHes.Remove(lh);
                     _contextDB.SaveChanges();
                     return Json(new { success = true });

@@ -152,9 +152,18 @@
                                         data-noidung="@item.NoiDung" data-ngaygui="@(item.NgayGui.HasValue ? item.NgayGui.Value.ToString("dd/MM/yyyy HH:mm") : "")">
                                     <i class="bi bi-eye-fill"></i> Xem chi tiết
                                 </button>
-                                <button class="btn btn-danger btn-sm btnXoaLienHe" data-id="@item.ID_LienHe">
-                                    <i class="bi bi-trash-fill"></i> Xóa
-                                </button>
+                                @if (item.TrangThai == "Chưa xử lý")
+                                {
+                                    <button class="btn btn-secondary btn-sm" disabled title="Liên hệ chưa xử lý nên không thể xóa">
+                                        <i class="bi bi-trash-fill"></i> Xóa
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-danger btn-sm btnXoaLienHe" data-id="@item.ID_LienHe">
+                                        <i class="bi bi-trash-fill"></i> Xóa
+                                    </button>
+                                }
                             </td>
                         </tr>
                     }
