@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 2970 2100">
+  <defs>
+    <style>
+      .page { fill: #ffffff; }
+      .title { font: 700 54px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 24px Arial, sans-serif; fill: #4b5563; }
+      .system { fill: #ffffff; stroke: #111827; stroke-width: 4; }
+      .system-title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .group-title { font: 700 25px Arial, sans-serif; fill: #2563eb; }
+      .actor-line, .link { stroke: #111827; stroke-width: 3.2; fill: none; }
+      .usecase { fill: #ffffff; stroke: #111827; stroke-width: 3; }
+      .usecase-soft { fill: #f8fbff; stroke: #111827; stroke-width: 3; }
+      .text { font: 27px Arial, sans-serif; fill: #111827; text-anchor: middle; dominant-baseline: middle; }
+      .actor-text { font: 28px Arial, sans-serif; fill: #111827; text-anchor: middle; }
+      .small { font: 22px Arial, sans-serif; fill: #374151; text-anchor: middle; }
+      .note { font: 22px Arial, sans-serif; fill: #4b5563; }
+      .include { stroke: #6b7280; stroke-width: 2.4; stroke-dasharray: 12 9; fill: none; marker-end: url(#arrow); }
+      .include-text { font: italic 21px Arial, sans-serif; fill: #6b7280; text-anchor: middle; }
+      .divider { stroke: #d1d5db; stroke-width: 2; stroke-dasharray: 10 10; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,8 L11,4 z" fill="#6b7280" />
+    </marker>
+  </defs>
+
+  <rect class="page" x="0" y="0" width="2970" height="2100" />
+  <text x="120" y="105" class="title">So do use case</text>
+  <text x="120" y="150" class="subtitle">He thong dat tour du lich TourDulich - kho A4 ngang</text>
+
+  <!-- System boundary -->
+  <rect x="410" y="210" width="2150" height="1740" rx="0" class="system" />
+  <text x="1485" y="265" class="system-title" text-anchor="middle">TourDulich</text>
+  <line x1="1485" y1="305" x2="1485" y2="1905" class="divider" />
+
+  <!-- Actor: Khach hang -->
+  <circle cx="190" cy="635" r="36" class="actor-line" />
+  <line x1="190" y1="671" x2="190" y2="805" class="actor-line" />
+  <line x1="105" y1="720" x2="275" y2="720" class="actor-line" />
+  <line x1="190" y1="805" x2="120" y2="930" class="actor-line" />
+  <line x1="190" y1="805" x2="260" y2="930" class="actor-line" />
+  <text x="190" y="990" class="actor-text">Khach hang</text>
+
+  <!-- Actor: Admin -->
+  <circle cx="2780" cy="900" r="36" class="actor-line" />
+  <line x1="2780" y1="936" x2="2780" y2="1070" class="actor-line" />
+  <line x1="2695" y1="985" x2="2865" y2="985" class="actor-line" />
+  <line x1="2780" y1="1070" x2="2710" y2="1195" class="actor-line" />
+  <line x1="2780" y1="1070" x2="2850" y2="1195" class="actor-line" />
+  <text x="2780" y="1255" class="actor-text">Admin</text>
+
+  <!-- Group titles -->
+  <text x="890" y="345" class="group-title" text-anchor="middle">Chuc nang khach hang</text>
+  <text x="2020" y="345" class="group-title" text-anchor="middle">Chuc nang quan tri</text>
+
+  <!-- Customer use cases -->
+  <ellipse cx="730" cy="440" rx="165" ry="52" class="usecase" />
+  <text x="730" y="440" class="text">Dang ky</text>
+
+  <ellipse cx="730" cy="580" rx="165" ry="52" class="usecase" />
+  <text x="730" y="580" class="text">Dang nhap</text>
+
+  <ellipse cx="730" cy="720" rx="165" ry="52" class="usecase" />
+  <text x="730" y="720" class="text">Tim kiem tour</text>
+
+  <ellipse cx="730" cy="860" rx="165" ry="52" class="usecase" />
+  <text x="730" y="860" class="text">Xem tour</text>
+
+  <ellipse cx="730" cy="1000" rx="205" ry="52" class="usecase" />
+  <text x="730" y="1000" class="text">Xem chi tiet tour</text>
+
+  <ellipse cx="730" cy="1140" rx="165" ry="52" class="usecase" />
+  <text x="730" y="1140" class="text">Dat tour</text>
+
+  <ellipse cx="730" cy="1280" rx="165" ry="52" class="usecase" />
+  <text x="730" y="1280" class="text">Thanh toan</text>
+
+  <ellipse cx="730" cy="1420" rx="220" ry="52" class="usecase" />
+  <text x="730" y="1420" class="text">Xem lich su dat tour</text>
+
+  <ellipse cx="730" cy="1560" rx="175" ry="52" class="usecase" />
+  <text x="730" y="1560" class="text">Gui danh gia</text>
+
+  <ellipse cx="730" cy="1700" rx="205" ry="52" class="usecase" />
+  <text x="730" y="1700" class="text">Gui yeu cau huy</text>
+
+  <!-- Shared/extended customer use cases -->
+  <ellipse cx="1200" cy="1070" rx="220" ry="52" class="usecase-soft" />
+  <text x="1200" y="1070" class="text">Chon lich khoi hanh</text>
+
+  <ellipse cx="1200" cy="1210" rx="190" ry="52" class="usecase-soft" />
+  <text x="1200" y="1210" class="text">Chon diem don</text>
+
+  <ellipse cx="1200" cy="1350" rx="245" ry="52" class="usecase-soft" />
+  <text x="1200" y="1350" class="text">Yeu cau xac nhan diem don</text>
+
+  <ellipse cx="1200" cy="440" rx="165" ry="52" class="usecase" />
+  <text x="1200" y="440" class="text">Xem tin tuc</text>
+
+  <ellipse cx="1200" cy="580" rx="165" ry="52" class="usecase" />
+  <text x="1200" y="580" class="text">Gui lien he</text>
+
+  <!-- Admin use cases -->
+  <ellipse cx="1780" cy="440" rx="170" ry="52" class="usecase" />
+  <text x="1780" y="440" class="text">Dang nhap</text>
+
+  <ellipse cx="1780" cy="620" rx="205" ry="52" class="usecase" />
+  <text x="1780" y="620" class="text">Quan ly dat tour</text>
+
+  <ellipse cx="1780" cy="780" rx="275" ry="52" class="usecase" />
+  <text x="1780" y="780" class="text">Xac nhan diem don / phu thu</text>
+
+  <ellipse cx="1780" cy="940" rx="220" ry="52" class="usecase" />
+  <text x="1780" y="940" class="text">Quan ly yeu cau huy</text>
+
+  <ellipse cx="1780" cy="1100" rx="190" ry="52" class="usecase" />
+  <text x="1780" y="1100" class="text">Quan ly tour</text>
+
+  <ellipse cx="1780" cy="1260" rx="245" ry="52" class="usecase" />
+  <text x="1780" y="1260" class="text">Quan ly lich khoi hanh</text>
+
+  <ellipse cx="1780" cy="1420" rx="225" ry="52" class="usecase" />
+  <text x="1780" y="1420" class="text">Quan ly lich trinh</text>
+
+  <ellipse cx="2205" cy="440" rx="245" ry="52" class="usecase" />
+  <text x="2205" y="440" class="text">Quan ly danh muc</text>
+
+  <ellipse cx="2205" cy="600" rx="220" ry="52" class="usecase" />
+  <text x="2205" y="600" class="text">Quan ly dia diem</text>
+
+  <ellipse cx="2205" cy="760" rx="220" ry="52" class="usecase" />
+  <text x="2205" y="760" class="text">Quan ly diem don</text>
+
+  <ellipse cx="2205" cy="920" rx="205" ry="52" class="usecase" />
+  <text x="2205" y="920" class="text">Quan ly mua gia</text>
+
+  <ellipse cx="2205" cy="1080" rx="245" ry="52" class="usecase" />
+  <text x="2205" y="1080" class="text">Quan ly chinh sach huy</text>
+
+  <ellipse cx="2205" cy="1240" rx="230" ry="52" class="usecase" />
+  <text x="2205" y="1240" class="text">Quan ly nguoi dung</text>
+
+  <ellipse cx="2205" cy="1400" rx="200" ry="52" class="usecase" />
+  <text x="2205" y="1400" class="text">Quan ly tin tuc</text>
+
+  <ellipse cx="2205" cy="1560" rx="240" ry="52" class="usecase" />
+  <text x="2205" y="1560" class="text">Quan ly lien he/email</text>
+
+  <!-- Customer associations -->
+  <line x1="275" y1="720" x2="565" y2="440" class="link" />
+  <line x1="275" y1="720" x2="565" y2="580" class="link" />
+  <line x1="275" y1="720" x2="565" y2="720" class="link" />
+  <line x1="275" y1="720" x2="565" y2="860" class="link" />
+  <line x1="275" y1="720" x2="525" y2="1000" class="link" />
+  <line x1="275" y1="720" x2="565" y2="1140" class="link" />
+  <line x1="275" y1="720" x2="565" y2="1280" class="link" />
+  <line x1="275" y1="720" x2="510" y2="1420" class="link" />
+  <line x1="275" y1="720" x2="555" y2="1560" class="link" />
+  <line x1="275" y1="720" x2="525" y2="1700" class="link" />
+  <line x1="275" y1="720" x2="1035" y2="440" class="link" />
+  <line x1="275" y1="720" x2="1035" y2="580" class="link" />
+
+  <!-- Admin associations -->
+  <line x1="2695" y1="985" x2="1950" y2="440" class="link" />
+  <line x1="2695" y1="985" x2="1985" y2="620" class="link" />
+  <line x1="2695" y1="985" x2="2055" y2="780" class="link" />
+  <line x1="2695" y1="985" x2="2000" y2="940" class="link" />
+  <line x1="2695" y1="985" x2="1970" y2="1100" class="link" />
+  <line x1="2695" y1="985" x2="2025" y2="1260" class="link" />
+  <line x1="2695" y1="985" x2="2005" y2="1420" class="link" />
+  <line x1="2695" y1="985" x2="2450" y2="440" class="link" />
+  <line x1="2695" y1="985" x2="2425" y2="600" class="link" />
+  <line x1="2695" y1="985" x2="2425" y2="760" class="link" />
+  <line x1="2695" y1="985" x2="2410" y2="920" class="link" />
+  <line x1="2695" y1="985" x2="2450" y2="1080" class="link" />
+  <line x1="2695" y1="985" x2="2435" y2="1240" class="link" />
+  <line x1="2695" y1="985" x2="2405" y2="1400" class="link" />
+  <line x1="2695" y1="985" x2="2445" y2="1560" class="link" />
+
+  <!-- Include/extend relationships -->
+  <path d="M895 1140 C960 1120 1010 1095 985 1080" class="include" />
+  <text x="990" y="1115" class="include-text">&lt;&lt;include&gt;&gt;</text>
+
+  <path d="M895 1140 C990 1165 1045 1190 1015 1205" class="include" />
+  <text x="995" y="1185" class="include-text">&lt;&lt;include&gt;&gt;</text>
+
+  <path d="M895 1280 C1015 1295 1070 1325 980 1340" class="include" />
+  <text x="1008" y="1320" class="include-text">&lt;&lt;extend&gt;&gt;</text>
+
+  <path d="M920 1420 C1030 1490 1055 1630 930 1685" class="include" />
+  <text x="1045" y="1570" class="include-text">&lt;&lt;include&gt;&gt;</text>
+
+  <path d="M1975 620 C2060 660 2075 715 1950 760" class="include" />
+  <text x="2072" y="695" class="include-text">&lt;&lt;include&gt;&gt;</text>
+
+  <path d="M1940 940 C2025 990 2050 1030 1960 1070" class="include" />
+  <text x="2055" y="1015" class="include-text">&lt;&lt;include&gt;&gt;</text>
+
+  <!-- CRUD notes kept outside use case area to avoid crowding -->
+  <rect x="525" y="1825" width="650" height="70" rx="10" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2" />
+  <text x="850" y="1860" class="small">Cac chuc nang quan ly gom: them, sua, xoa, xem chi tiet</text>
+
+  <rect x="1580" y="1825" width="780" height="70" rx="10" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2" />
+  <text x="1970" y="1860" class="small">Du lieu chinh: Tour, DatTour, LichKhoiHanh, NguoiDung, YeuCauHuy</text>
+
+  <text x="410" y="2028" class="note">Ghi chu: So do sap xep theo A4 ngang, co the chen truc tiep vao Word/PowerPoint hoac in vua mot trang.</text>
+</svg>

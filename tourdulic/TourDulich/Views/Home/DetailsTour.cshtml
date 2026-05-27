@@ -1,0 +1,591 @@
+@model TourDulich.ModelView.TourView
+
+@{
+    ViewBag.Title = "DetailsTour";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb shadow-sm bg-white p-3 rounded mb-0" style="font-size: 1rem;">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "Home")" class="text-decoration-none text-primary">
+                    <i></i>Trang chủ
+                </a>
+            </li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">
+                <i class="bi bi-chevron-right mx-1"></i>Chi tiết tour
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container my-4">
+    <h2 class="fw-bold">@Model.TenTour</h2>
+
+    <div class="mb-3">
+        @for (int i = 1; i <= 5; i++)
+        {
+            if (i <= Model.SoSao)
+            {
+                <span style="color: gold; font-size: 1.5rem;">&#9733;</span>
+            }
+            else
+            {
+                <span style="color: lightgray; font-size: 1.5rem;">&#9733;</span> 
+            }
+        }
+    </div>
+</div>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-lg-9">
+            <img src="~/Images/ImagesTour/@Model.HinhAnh" class="card-img-top mb-4" alt="@Model.TenTour" style="height: 300px; object-fit: cover;">
+            <div class="d-flex flex-wrap" style="font-size: 0.95rem; gap: 1.5rem;">
+                <div class="d-flex align-items-start" style="min-width: 170px;">
+                    <i class="bi bi-airplane-engines-fill text-primary" style="font-size: 2rem; margin-right: 10px;"></i>
+                    <div>
+                        <div class="text-secondary fw-semibold">Khởi hành từ:</div>
+                        <div class="text-primary fw-bold">@Model.DiemKhoiHanh</div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start" style="min-width: 170px;">
+                    <i class="bi bi-geo-alt-fill text-danger" style="font-size: 2rem; margin-right: 10px;"></i>
+                    <div>
+                        <div class="text-secondary fw-semibold">Điểm đến:</div>
+                        <div class="text-primary fw-bold">@Model.DiemDen</div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start" style="min-width: 170px;">
+                    <i class="bi bi-clock-history text-warning" style="font-size: 2rem; margin-right: 10px;"></i>
+                    <div>
+                        <div class="text-secondary fw-semibold">Thời gian:</div>
+                        <div class="text-primary fw-bold">@Model.SoNgay</div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start" style="min-width: 170px;">
+                    <i class="bi bi-people-fill text-success" style="font-size: 2rem; margin-right: 10px;"></i>
+                    <div>
+                        <div class="text-secondary fw-semibold">Số lượng tối đa:</div>
+                        <div class="text-primary fw-bold">@Model.SoLuongToiDa</div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-start" style="min-width: 170px;">
+                    <i class="bi bi-bus-front-fill text-info" style="font-size: 2rem; margin-right: 10px;"></i>
+                    <div>
+                        <div class="text-secondary fw-semibold">Di chuyển bằng:</div>
+                        <div class="text-primary fw-bold">@Model.PhuongTien</div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-4 border-primary">
+
+            <ul class="nav nav-tabs" id="tourTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="gioi-thieu-tab" data-bs-toggle="tab" data-bs-target="#gioi-thieu"
+                            type="button" role="tab" aria-controls="gioi-thieu" aria-selected="true">
+                        Giới thiệu
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="lich-trinh-tab" data-bs-toggle="tab" data-bs-target="#lich-trinh"
+                            type="button" role="tab" aria-controls="lich-trinh" aria-selected="false">
+                        Lịch trình
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="vi-tri-tab" data-bs-toggle="tab" data-bs-target="#vi-tri"
+                            type="button" role="tab" aria-controls="vi-tri" aria-selected="false">
+                        Vị trí
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="thu-vien-tab" data-bs-toggle="tab" data-bs-target="#thu-vien"
+                            type="button" role="tab" aria-controls="thu-vien" aria-selected="false">
+                        Thư viện ảnh
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="danh-gia-tab" data-bs-toggle="tab" data-bs-target="#danh-gia"
+                            type="button" role="tab" aria-controls="danh-gia" aria-selected="false">
+                        Đánh giá
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content border border-top-0 p-4 mb-4" id="tourTabContent">
+                <div class="tab-pane fade show active" id="gioi-thieu" role="tabpanel" aria-labelledby="gioi-thieu-tab">
+                    @Html.Raw(Model.MoTa)
+
+                    <div class="mt-4">
+                        <h4>Bộ sưu tập</h4>
+                        <p>"Khám phá bộ sưu tập ảnh du lịch của chúng tôi – nơi lưu giữ những khoảnh khắc tuyệt đẹp và hành trình đáng nhớ trên mọi miền đất nước."</p>
+                        @if (Model.HinhAnhKhac != null && Model.HinhAnhKhac.Any())
+                        {
+                            var firstThreeImages = Model.HinhAnhKhac.Take(3);
+                            <div class="d-flex gap-3">
+
+                                @foreach (var img in firstThreeImages)
+                                {
+                                    <img src="@Url.Content("~/Images/ImagesTour/" + img)"
+                                         alt="@Model.TenTour"
+                                         style="width: 270px; height: 230px; object-fit: cover; border-radius: 6px;" />
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="lich-trinh" role="tabpanel" aria-labelledby="lich-trinh-tab">
+                    @if (Model.LichTrinhTours != null && Model.LichTrinhTours.Any())
+                    {
+                        <ul class="list-group">
+                            @{
+                                var lichTrinhList = Model.LichTrinhTours.OrderBy(lt => lt.NgayThu).ToList();
+                                for (int i = 0; i < lichTrinhList.Count(); i++)
+                                {
+                                    var item = lichTrinhList[i];
+                                    <li class="list-group-item mb-3">
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="fw-bold text-primary fs-5">@((i + 1)).</div>
+                                            </div>
+                                            <div class="col">
+                                                <h5>Ngày @item.NgayThu: @item.TieuDe</h5>
+                                                <p>@item.NoiDung</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Đang cập nhật lịch trình tour...</p>
+                    }
+                </div>
+
+                <div class="tab-pane fade" id="vi-tri" role="tabpanel" aria-labelledby="vi-tri-tab">
+                    <div class="mb-3">
+                        <h5 class="fw-semibold">Điểm đến: @Model.DiemDen</h5>
+                        <p class="text-muted">Dưới đây là bản đồ vị trí của điểm đến tour.</p>
+                    </div>
+
+                    <div class="ratio ratio-16x9 border rounded shadow-sm">
+                        <iframe src="https://www.google.com/maps?q=@Uri.EscapeDataString(Model.DiemDen)&output=embed"
+                                width="100"
+                                height="100"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="thu-vien" role="tabpanel" aria-labelledby="thu-vien-tab">
+                    @if (Model.HinhAnhKhac != null && Model.HinhAnhKhac.Any())
+                    {
+                        <div class="row g-3">
+                            @foreach (var img in Model.HinhAnhKhac)
+                            {
+                                <div class="col-4">
+                                    <img src="@Url.Content("~/Images/ImagesTour/" + img)"
+                                         alt="@Model.TenTour"
+                                         class="img-fluid rounded"
+                                         style="height: 230px; object-fit: cover; width: 100%;" />
+                                </div>
+                            }
+                        </div>
+                    }
+
+                </div>
+
+                <div class="tab-pane fade" id="danh-gia" role="tabpanel" aria-labelledby="danh-gia-tab">
+                    @if (ViewBag.DanhGiaList != null && ViewBag.DanhGiaList.Count > 0)
+                    {
+                        foreach (var dg in ViewBag.DanhGiaList)
+                        {
+                            <div class="mb-3 border-bottom pb-2">
+                                <strong>@dg.HoTen</strong>
+                                <div>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= dg.SoSao)
+                                        {
+                                            <span style="color: gold;">&#9733;</span> 
+                                        }
+                                        else
+                                        {
+                                            <span style="color: lightgray;">&#9733;</span> 
+                                        }
+                                    }
+                                </div>
+                                <small class="text-muted">@dg.NgayDanhGia.ToString("dd/MM/yyyy")</small>
+                                <p>@dg.NoiDung</p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>Chưa có đánh giá nào cho tour này.</p>
+                    }
+
+                    <hr />
+                    @if (Session["ID_NguoiDung"] != null && !(ViewBag.DaDanhGia ?? false))
+                    {
+                        <h5 class="mt-4">Gửi đánh giá của bạn:</h5>
+                        <form method="post" action="@Url.Action("GuiDanhGia", "Home")">
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden" name="ID_Tour" value="@Model.ID_Tour" />
+
+                            <div class="mb-2">
+                                <label for="SoSao">Số sao:</label>
+                                <select name="SoSao" class="form-select" required>
+                                    <option value="">-- Chọn sao --</option>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <option value="@i">@i sao</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="NoiDung">Nội dung:</label>
+                                <textarea name="NoiDung" class="form-control" required rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Gửi đánh giá</button>
+                        </form>
+                    }
+                    else if (Session["ID_NguoiDung"] == null)
+                    {
+                        <p class="text-danger">Vui lòng <a href="@Url.Action("DangNhap", "NguoiDung")">đăng nhập</a> để đánh giá tour.</p>
+                    }
+                    else
+                    {
+                        <p class="text-success">Bạn đã đánh giá tour này rồi.</p>
+                    }
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 d-flex justify-content-center">
+            <div class="card p-4 shadow rounded-4 border-0" style="max-width: 360px; width: 100%; max-height: 650px; overflow-y: auto;">
+                <h4 class="mb-3 text-center fw-bold text-primary">Đặt Tour Ngay</h4>
+
+                <div class="text-center mb-2">
+                    <span class="text-primary fw-bold" style="font-size: 1.6rem;">
+                        <i class="bi bi-ticket-perforated-fill me-2" style="font-size: 1.8rem;"></i>
+                        @string.Format("{0:N0} VNĐ", Model.Gia)
+                    </span>
+                </div>
+
+                <div class="text-center mb-3">
+                    <small class="text-muted fst-italic">Mã tour: <span class="fw-semibold text-dark">@Model.ID_Tour</span></small>
+                </div>
+
+                <!-- Toggle Khách lẻ / Đoàn -->
+                <div class="btn-group w-100 mb-3" role="group">
+                    <input type="radio" class="btn-check" name="loaiDatToggle" id="radioKhachLe" checked>
+                    <label class="btn btn-outline-primary" for="radioKhachLe">
+                        <i class="bi bi-person-fill me-1"></i> Khách lẻ
+                    </label>
+                    <input type="radio" class="btn-check" name="loaiDatToggle" id="radioDoan">
+                    <label class="btn btn-outline-success" for="radioDoan">
+                        <i class="bi bi-people-fill me-1"></i> Đoàn (≥10)
+                    </label>
+                </div>
+
+                <form method="post" action="@Url.Action("DatTourTam", "Home")" id="formDatTour">
+                    <input type="hidden" name="TourId" value="@Model.ID_Tour" />
+                    <input type="hidden" name="LoaiDat" id="hiddenLoaiDat" value="Khách lẻ" />
+
+                    <!-- Dropdown chọn ngày khởi hành -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Chọn ngày khởi hành</label>
+                        <select class="form-select" id="selectedDateSelect" name="SelectedDate" required>
+                            <option value="">-- Đang tải lịch khởi hành... --</option>
+                        </select>
+                        <small class="text-muted" id="slotInfo"></small>
+                    </div>
+
+                    @{
+                        var diemDonTours = ViewBag.DiemDonTours as List<TourDulich.ModelView.DiemDonTourView>;
+                    }
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Điểm đón</label>
+                        <select class="form-select" id="pickupMode" name="LoaiDiemDon" required>
+                            @if (diemDonTours != null && diemDonTours.Any())
+                            {
+                                foreach (var diemDon in diemDonTours)
+                                {
+                                    var label = diemDon.TenDiemDon;
+                                    if (!string.IsNullOrWhiteSpace(diemDon.TinhThanh))
+                                    {
+                                        label += " - " + diemDon.TinhThanh;
+                                    }
+                                    if (diemDon.PhuThu != 0)
+                                    {
+                                        label += " (" + (diemDon.PhuThu > 0 ? "+" : "") + string.Format("{0:N0} VNĐ", diemDon.PhuThu) + ")";
+                                    }
+                                    <option value="CoDinh" data-id="@diemDon.Id" data-phuthu="@diemDon.PhuThu.ToString(System.Globalization.CultureInfo.InvariantCulture)">
+                                        @label
+                                    </option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="CoDinh" data-id="" data-phuthu="0">Điểm khởi hành chính: @Model.DiemKhoiHanh</option>
+                            }
+                            <option value="YeuCauKhac" data-id="" data-phuthu="0">Yêu cầu điểm đón khác</option>
+                        </select>
+                        <input type="hidden" id="diemDonId" name="DiemDonId" />
+                        <small class="text-muted">Nếu điểm đón chưa có trong danh sách, chọn yêu cầu khác để admin xác nhận.</small>
+                    </div>
+
+                    <div id="customPickupSection" class="d-none">
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold">Tỉnh/Thành muốn đón</label>
+                            <input type="text" class="form-control" id="tinhThanhDon" name="TinhThanhDon" placeholder="VD: Nam Định" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold">Địa chỉ đón cụ thể</label>
+                            <input type="text" class="form-control" id="diaChiDon" name="DiaChiDon" placeholder="VD: BigC Nam Định, bến xe..." />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Ghi chú điểm đón</label>
+                            <textarea class="form-control" name="GhiChuDiemDon" rows="2" placeholder="Thời gian thuận tiện, số người tại điểm đón..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Số lượng vé -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Số lượng <span id="lblLoai" class="text-muted">(người)</span></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" id="btnDecrement">-</button>
+                            <input type="number" class="form-control text-center fw-bold"
+                                   id="ticketQuantity" name="TicketQuantity"
+                                   value="1" min="1" readonly />
+                            <button class="btn btn-outline-secondary" type="button" id="btnIncrement">+</button>
+                        </div>
+                        <small id="validationMsg" class="text-danger d-none fw-semibold mt-1 d-block"></small>
+                        <small class="text-muted mt-1 d-block" id="slotRemaining"></small>
+                    </div>
+
+                    <!-- Tổng tiền -->
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Tổng tiền dự kiến</label>
+                        <div class="text-success fw-bold fs-5" id="totalPrice">-- VNĐ</div>
+                    </div>
+
+                    <!-- Thông tin trưởng đoàn (chỉ hiện khi chọn Đoàn) -->
+                    <div id="sectionDoan" class="d-none">
+                        <hr class="my-2">
+                        <div class="alert alert-info py-2 small mb-2">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Đặt đoàn sẽ ở trạng thái <strong>"Chờ xác nhận"</strong>. Nhân viên liên hệ trưởng đoàn trong 24 giờ.
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold">Họ tên trưởng đoàn <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="truongDoan" name="TruongDoan" placeholder="Nguyễn Văn A" />
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label fw-semibold">SĐT trưởng đoàn <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="sdtTruongDoan" name="SdtTruongDoan" placeholder="09xxxxxxxx" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Ghi chú yêu cầu</label>
+                            <textarea class="form-control" name="GhiChuDoan" rows="2" placeholder="Yêu cầu đặc biệt, xe riêng..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold py-2" id="btnDatTour">
+                        Đặt Tour
+                    </button>
+                </form>
+
+                <!-- Chính sách hủy tour -->
+                <div class="mt-3 p-3 rounded-3" style="background:#fff8e1; border:1px solid #ffe082; font-size:0.82rem;">
+                    <div class="fw-bold text-warning mb-2">
+                        <i class="bi bi-shield-exclamation me-1"></i>Chính sách hủy tour
+                    </div>
+                    <ul class="mb-0 ps-3 text-secondary" style="line-height:1.7">
+                        <li>Yêu cầu hủy chỉ được gửi <strong>sau 5 ngày</strong> kể từ ngày đặt.</li>
+                        <li>Phải hủy trước ngày khởi hành <strong>ít nhất 7 ngày</strong>.</li>
+                        <li>Tỷ lệ hoàn tiền tùy theo thời điểm hủy (do nhân viên thông báo).</li>
+                        <li>Hoàn tiền qua <strong>chuyển khoản ngân hàng</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tourId = @Model.ID_Tour;
+            const pricePerTicket = @((Model.Gia ?? 0).ToString("F0", System.Globalization.CultureInfo.InvariantCulture));
+            const radioKhachLe  = document.getElementById('radioKhachLe');
+            const radioDoan     = document.getElementById('radioDoan');
+            const hiddenLoaiDat = document.getElementById('hiddenLoaiDat');
+            const sectionDoan   = document.getElementById('sectionDoan');
+            const ticketQty     = document.getElementById('ticketQuantity');
+            const btnDec        = document.getElementById('btnDecrement');
+            const btnInc        = document.getElementById('btnIncrement');
+            const totalPriceEl  = document.getElementById('totalPrice');
+            const validationMsg = document.getElementById('validationMsg');
+            const slotRemainingEl = document.getElementById('slotRemaining');
+            const selectDate    = document.getElementById('selectedDateSelect');
+            const btnDatTour    = document.getElementById('btnDatTour');
+            const pickupMode    = document.getElementById('pickupMode');
+            const diemDonId     = document.getElementById('diemDonId');
+            const customPickupSection = document.getElementById('customPickupSection');
+            const tinhThanhDon  = document.getElementById('tinhThanhDon');
+            const diaChiDon     = document.getElementById('diaChiDon');
+            let maxSlot = 99;
+            let isDoan  = false;
+            let pickupFee = 0;
+
+            // Load danh sách ngày khởi hành
+            function loadDates() {
+                var apiUrl = '@Url.Action("GetAvailableDates", "Home")';
+
+                // Dùng API của Home để lấy ngày
+            fetch(apiUrl + '?tourId=' + tourId)
+                    .then(r => r.json())
+                    .then(data => {
+                        selectDate.innerHTML = '<option value="">-- Chọn ngày khởi hành --</option>';
+                        if (!data || data.length === 0) {
+                            selectDate.innerHTML = '<option value="">Hiện chưa có lịch khởi hành</option>';
+                            return;
+                        }
+                        data.forEach(function(item) {
+                            var d = new Date(item.ngay);
+                            var label = d.toLocaleDateString('vi-VN', {day:'2-digit', month:'2-digit', year:'numeric'});
+                            var conLaiText = '';
+                            if (!isDoan) {
+                                if (item.conLai <= 0) { return; } // Khách lẻ: bỏ qua ngày hết chỗ
+                                conLaiText = item.saptHet
+                                    ? ' – ⚠️ Sắp hết (' + item.conLai + ' chỗ)'
+                                    : ' – Còn ' + item.conLai + ' chỗ';
+                            } else {
+                                conLaiText = item.conLai > 0
+                                    ? ' – Còn ' + item.conLai + ' chỗ lẻ'
+                                    : ' – Hết slot lẻ (đoàn vẫn đặt được)';
+                            }
+                            var opt = document.createElement('option');
+                            opt.value = item.ngay;
+                            var badgeMua = item.tenMua ? ' [' + item.tenMua + ']' : '';
+                            opt.textContent = label + badgeMua + conLaiText;
+                            opt.dataset.conlai = item.conLai;
+                            opt.dataset.hesogia = item.heSoGia;
+                            selectDate.appendChild(opt);
+                        });
+                        onDateChange();
+                    })
+                    .catch(function() {
+                        selectDate.innerHTML = '<option value="">Lỗi tải lịch, thử lại sau</option>';
+                    });
+            }
+
+            function onDateChange() {
+                var sel = selectDate.options[selectDate.selectedIndex];
+                if (!sel || !sel.dataset.conlai) { maxSlot = isDoan ? 999 : 1; return; }
+                var c = parseInt(sel.dataset.conlai);
+                var heSoGia = parseFloat(sel.dataset.hesogia) || 1.0;
+                window.currentHeSoGia = heSoGia;
+                maxSlot = isDoan ? 999 : (c > 0 ? c : 1);
+                slotRemainingEl.textContent = isDoan ? '' : ('Tối đa còn: ' + c + ' chỗ');
+                ticketQty.value = isDoan ? 10 : 1;
+                updateTotal();
+                validate();
+            }
+
+            selectDate.addEventListener('change', onDateChange);
+
+            function onPickupChange() {
+                var sel = pickupMode.options[pickupMode.selectedIndex];
+                var custom = sel && sel.value === 'YeuCauKhac';
+                customPickupSection.classList.toggle('d-none', !custom);
+                tinhThanhDon.required = custom;
+                diaChiDon.required = custom;
+                diemDonId.value = custom || !sel ? '' : (sel.dataset.id || '');
+                pickupFee = custom || !sel ? 0 : (parseFloat(sel.dataset.phuthu) || 0);
+                updateTotal();
+            }
+            pickupMode.addEventListener('change', onPickupChange);
+
+            // Toggle khách lẻ / đoàn
+            function onToggleChange() {
+                isDoan = radioDoan.checked;
+                hiddenLoaiDat.value = isDoan ? 'Đoàn' : 'Khách lẻ';
+                sectionDoan.classList.toggle('d-none', !isDoan);
+                document.getElementById('truongDoan').required = isDoan;
+                document.getElementById('sdtTruongDoan').required = isDoan;
+                ticketQty.value = isDoan ? 10 : 1;
+                loadDates();
+            }
+            radioKhachLe.addEventListener('change', onToggleChange);
+            radioDoan.addEventListener('change', onToggleChange);
+
+            // Tăng giảm số lượng
+            btnDec.addEventListener('click', function () {
+                var v = parseInt(ticketQty.value);
+                var minVal = isDoan ? 10 : 1;
+                if (v > minVal) { ticketQty.value = v - 1; updateTotal(); validate(); }
+            });
+            btnInc.addEventListener('click', function () {
+                var v = parseInt(ticketQty.value);
+                if (v < maxSlot) { ticketQty.value = v + 1; updateTotal(); validate(); }
+            });
+
+            function validate() {
+                var qty = parseInt(ticketQty.value) || 0;
+                var msg = '';
+                if (isDoan && qty < 10) msg = 'Đặt đoàn tối thiểu 10 người.';
+                else if (!isDoan && qty > maxSlot) msg = 'Vượt quá số chỗ còn lại (' + maxSlot + ' chỗ).';
+                validationMsg.textContent = msg;
+                validationMsg.classList.toggle('d-none', !msg);
+                btnDatTour.disabled = !!msg;
+            }
+
+            function updateTotal() {
+                var qty = parseInt(ticketQty.value) || 0;
+                var heSo = window.currentHeSoGia || 1.0;
+                var selectedPickup = pickupMode.options[pickupMode.selectedIndex];
+                if (selectedPickup && selectedPickup.value === 'YeuCauKhac') {
+                    totalPriceEl.innerHTML = '<span class="text-warning">Chờ admin xác nhận giá</span>';
+                    return;
+                }
+
+                var total = qty * ((pricePerTicket * heSo) + pickupFee);
+                totalPriceEl.textContent = total.toLocaleString('vi-VN') + ' VNĐ';
+                if (heSo != 1.0) {
+                    totalPriceEl.innerHTML += ' <small class="text-danger">(Đã áp dụng giá mùa cao điểm/khuyến mãi)</small>';
+                }
+                if (pickupFee != 0) {
+                    totalPriceEl.innerHTML += ' <small class="text-primary">(Điểm đón: ' + (pickupFee > 0 ? '+' : '') + pickupFee.toLocaleString('vi-VN') + ' VNĐ/người)</small>';
+                }
+            }
+
+            // Load lần đầu
+            onPickupChange();
+            loadDates();
+        });
+        </script>
+
+    </div>
+</div>
+
+

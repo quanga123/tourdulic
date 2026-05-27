@@ -1,0 +1,165 @@
+﻿@using System.Linq
+@model List<TourDulich.ModelView.TourDaDatTamThoi>
+
+@{
+    ViewBag.Title = "XacNhanDatTour";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb shadow-sm bg-white p-3 rounded mb-0" style="font-size: 1rem;">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action("Index", "Home")" class="text-decoration-none text-primary">
+                    <i></i>Trang chủ
+                </a>
+            </li>
+            <li class="breadcrumb-item active text-dark" aria-current="page">
+                <i class="bi bi-chevron-right mx-1"></i>Đặt tour
+            </li>
+        </ol>
+    </nav>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning text-center p-4">
+        <i class="bi bi-exclamation-triangle-fill text-warning fs-3"></i><br />
+        Không có dữ liệu đặt tour.
+    </div>
+}
+else
+{
+    <div class="container">
+        <h4 class="fw-bold mb-4">Xác nhận đặt tour</h4>
+
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-warning text-center p-4">
+                <i class="bi bi-exclamation-triangle-fill text-warning fs-3"></i><br />
+                Không có dữ liệu đặt tour.
+            </div>
+        }
+        else
+        {
+            <table class="table align-middle table-borderless">
+                <thead class="border-bottom fw-bold">
+                    <tr>
+                        <th style="width: 40%;">Thông tin sản phẩm</th>
+                        <th class="text-center" style="width: 15%;">Đơn giá</th>
+                        <th class="text-center" style="width: 15%;">Số lượng</th>
+                        <th class="text-center" style="width: 15%;">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tour in Model)
+                    {
+                        <tr class="border-bottom">
+                            <td>
+                                <div class="d-flex">
+                                    <img src="~/Images/ImagesTour/@tour.HinhAnh" alt="ảnh" class="img-thumbnail me-3" style="width: 100px; height: 75px; object-fit: cover;" />
+                                    <div>
+                                        <div class="fw-semibold">@tour.TenTour</div>
+                                        <div class="text-muted small fst-italic">Ngày đi: @tour.NgayDi.ToString("dd/MM/yyyy")</div>
+                                        <div class="text-muted small">
+                                            Điểm đón: <strong>@tour.DiemDon</strong>
+                                            @if (!string.IsNullOrWhiteSpace(tour.TinhThanhDon))
+                                            {
+                                                <span> - @tour.TinhThanhDon</span>
+                                            }
+                                            @if (tour.CanXacNhanDiemDon)
+                                            {
+                                                <span class="badge bg-warning text-dark ms-1">Chờ xác nhận</span>
+                                            }
+                                        </div>
+                                        @if (!string.IsNullOrWhiteSpace(tour.DiaChiDon))
+                                        {
+                                            <div class="text-muted small">Địa chỉ: @tour.DiaChiDon</div>
+                                        }
+                                        @if ((tour.PhuThuDiemDon ?? 0) != 0)
+                                        {
+                                            <div class="text-primary small">Phụ thu điểm đón: @string.Format("{0:N0}₫/người", tour.PhuThuDiemDon)</div>
+                                        }
+                                        @using (Html.BeginForm("XoaTourTamThoi", "Home", FormMethod.Post))
+                                        {
+                                            <input type="hidden" name="TourId" value="@tour.TourId" />
+                                            <input type="hidden" name="NgayDi" value="@tour.NgayDi.ToString("yyyy-MM-dd")" />
+                                            <button type="submit" class="btn btn-link text-danger p-0 mt-1" style="font-size: 0.875rem;">Xoá</button>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center text-primary fw-semibold">
+                                @if (tour.CanXacNhanDiemDon)
+                                {
+                                    <span class="text-muted">Chờ báo giá</span>
+                                }
+                                else
+                                {
+                                    @Html.Raw(string.Format("{0:N0}₫", (tour.GiaThucTe ?? tour.Gia) + (tour.PhuThuDiemDon ?? 0)))
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="d-inline-flex align-items-center border rounded px-2">
+                                    <span class="px-2">-</span>
+                                    <span>@tour.SoLuong</span>
+                                    <span class="px-2">+</span>
+                                </div>
+                            </td>
+                            <td class="text-center fw-bold text-success">
+                                @if (tour.CanXacNhanDiemDon)
+                                {
+                                    <span class="text-muted">Chờ báo giá</span>
+                                }
+                                else
+                                {
+                                    @Html.Raw(string.Format("{0:N0}₫", tour.ThanhTienCoDiemDon))
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-end">
+                @{
+                    bool canXacNhanDiemDon = Model.Any(t => t.CanXacNhanDiemDon);
+                }
+                <h5 class="fw-bold">
+                    @(canXacNhanDiemDon ? "Tổng tiền:" : "Tổng tiền:")
+                    @if (canXacNhanDiemDon)
+                    {
+                        <span class="text-warning">Chờ admin xác nhận giá</span>
+                    }
+                    else
+                    {
+                        <span class="text-success">
+                            @string.Format("{0:N0}₫", Model.Sum(t => t.ThanhTienCoDiemDon))
+                        </span>
+                    }
+                </h5>
+                @if (canXacNhanDiemDon)
+                {
+                    <div class="alert alert-warning text-start mt-3">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                        Đơn này có điểm đón cần admin xác nhận. Bạn chưa cần thanh toán ở bước này.
+                    </div>
+                    using (Html.BeginForm("GuiYeuCauXacNhanDiemDon", "Home", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning fw-semibold px-4 mt-2">
+                            <i class="bi bi-send"></i> Gửi yêu cầu xác nhận điểm đón
+                        </button>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.Action("ThanhToan", "Home")" class="btn btn-success fw-semibold px-4 mt-3">
+                        <i class="bi bi-credit-card"></i> Thanh toán
+                    </a>
+                }
+
+            </div>
+        }
+    </div>
+}
