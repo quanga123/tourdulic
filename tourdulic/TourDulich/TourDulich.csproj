@@ -298,6 +298,7 @@
     <Content Include="Scripts\migration_pickup_points.sql" />
     <Content Include="Scripts\migration_user_active_status.sql" />
     <Content Include="Scripts\migration_cancel_policy_active_status.sql" />
+    <Content Include="Scripts\migration_invoice_request.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -45,6 +45,13 @@ namespace TourDulich.Services
             return TrySendToCustomer(customer?.Email, customer?.HoTen, subject, BuildCustomerBookingResultEmailBody(datTour), out errorMessage);
         }
 
+        public bool TrySendInvoiceToCustomer(DatTour datTour, out string errorMessage)
+        {
+            var customer = datTour.NguoiDung;
+            var subject = "[Du Lich Viet] Hoa don cho don dat tour #" + datTour.ID_DatTour;
+            return TrySendToCustomer(customer?.Email, customer?.HoTen, subject, BuildInvoiceEmailBody(datTour), out errorMessage);
+        }
+
         public bool TrySendCancelResultToCustomer(YeuCauHuy yeuCauHuy, out string errorMessage)
         {
             var customer = yeuCauHuy.DatTour?.NguoiDung;
@@ -291,6 +298,57 @@ namespace TourDulich.Services
                         <tbody>{tourRows}</tbody>
                     </table>
                     <p style='margin-top: 16px; color: #64748b;'>Bạn có thể đăng nhập website để xem chi tiết đơn trong lịch sử đặt tour.</p>
+                </div>";
+        }
+
+        private static string BuildInvoiceEmailBody(DatTour datTour)
+        {
+            var customer = datTour.NguoiDung;
+            var invoiceCode = "HD-" + DateTime.Now.ToString("yyyyMMdd") + "-" + datTour.ID_DatTour.ToString("D5");
+            var tourRows = string.Join("", datTour.ChiTietDatTours.Select(ct =>
+            {
+                var unitPrice = (ct.Gia ?? 0) + (ct.PhuThuDiemDon ?? 0);
+                var quantity = ct.SoLuongNguoi ?? 0;
+                var lineTotal = unitPrice * quantity;
+                return $@"
+                <tr>
+                    <td style='padding: 8px; border-bottom: 1px solid #e5e7eb;'>{Encode(ct.Tour?.TenTour)}</td>
+                    <td style='padding: 8px; border-bottom: 1px solid #e5e7eb;'>{(ct.NgayKhoiHanh.HasValue ? ct.NgayKhoiHanh.Value.ToString("dd/MM/yyyy") : "")}</td>
+                    <td style='padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: center;'>{quantity}</td>
+                    <td style='padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: right;'>{unitPrice:N0} VND</td>
+                    <td style='padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: right;'>{lineTotal:N0} VND</td>
+                </tr>";
+            }));
+
+            return $@"
+                <div style='font-family: Arial, sans-serif; color: #111827; line-height: 1.5;'>
+                    <h2 style='color: #0d6efd; margin-bottom: 4px;'>Hoa don</h2>
+                    <p style='color: #64748b; margin-top: 0;'>Hoa don nay duoc tao tu dong theo yeu cau xuat hoa don cua khach hang.</p>
+                    <p><strong>So hoa don:</strong> {invoiceCode}</p>
+                    <p><strong>Ma don dat tour:</strong> #{datTour.ID_DatTour}</p>
+                    <p><strong>Ngay xuat:</strong> {DateTime.Now:dd/MM/yyyy HH:mm}</p>
+                    <p><strong>Khach hang:</strong> {Encode(customer?.HoTen)}</p>
+                    <p><strong>Email:</strong> {Encode(customer?.Email)}</p>
+                    <p><strong>Ma so thue:</strong> {Encode(datTour.MaSoThueHoaDon)}</p>
+                    <p><strong>So dien thoai:</strong> {Encode(customer?.SoDienThoai)}</p>
+                    <p><strong>Dia chi:</strong> {Encode(customer?.DiaChi)}</p>
+                    <table style='border-collapse: collapse; width: 100%; margin-top: 14px;'>
+                        <thead>
+                            <tr style='background: #eff6ff;'>
+                                <th style='padding: 8px; text-align: left;'>Tour</th>
+                                <th style='padding: 8px; text-align: left;'>Ngay di</th>
+                                <th style='padding: 8px;'>So luong</th>
+                                <th style='padding: 8px; text-align: right;'>Don gia</th>
+                                <th style='padding: 8px; text-align: right;'>Thanh tien</th>
+                            </tr>
+                        </thead>
+                        <tbody>{tourRows}</tbody>
+                    </table>
+                    <p style='font-size: 18px; font-weight: 700; color: #dc3545; text-align: right;'>
+                        Tong thanh toan: {((datTour.TongTien ?? 0).ToString("N0"))} VND
+                    </p>
+                    <p><strong>Ghi chu:</strong> Gia da bao gom VAT.</p>
+                    <p style='margin-top: 16px; color: #64748b;'>Day la hoa don duoc gui tu he thong Du Lich Viet.</p>
                 </div>";
         }
 

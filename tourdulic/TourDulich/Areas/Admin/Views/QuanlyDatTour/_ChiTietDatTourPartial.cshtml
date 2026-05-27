@@ -86,6 +86,27 @@
         <div class="order-detail-label">Tổng tiền</div>
         <div class="order-detail-value fw-bold text-danger">@string.Format("{0:N0} VNĐ", datTour == null ? 0 : (datTour.TongTien ?? 0))</div>
     </div>
+    <div class="order-detail-row">
+        <div class="order-detail-label">Xu&#7845;t h&#243;a &#273;&#417;n</div>
+        <div class="order-detail-value">
+            @if (datTour != null && datTour.YeuCauXuatHoaDon)
+            {
+                <span class="badge bg-info text-dark"><i class="bi bi-receipt me-1"></i>Kh&#225;ch y&#234;u c&#7847;u</span>
+                if (!string.IsNullOrWhiteSpace(datTour.MaSoThueHoaDon))
+                {
+                    <span class="ms-2"><strong>MST:</strong> @datTour.MaSoThueHoaDon</span>
+                }
+                if (datTour.DaGuiHoaDon)
+                {
+                    <span class="badge bg-success ms-1">Đ&#227; g&#7917;i email</span>
+                }
+            }
+            else
+            {
+                <span class="text-muted">Kh&#244;ng y&#234;u c&#7847;u</span>
+            }
+        </div>
+    </div>
     @if (datTour != null && !string.IsNullOrWhiteSpace(datTour.GhiChu))
     {
         <div class="order-detail-row">

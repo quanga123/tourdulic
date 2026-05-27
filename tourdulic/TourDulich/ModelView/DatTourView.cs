@@ -21,6 +21,9 @@ namespace TourDulich.ModelView
         public string TruongDoan { get; set; }
         public string SdtTruongDoan { get; set; }
         public string GhiChuDoan { get; set; }
+        public bool YeuCauXuatHoaDon { get; set; }
+        public string MaSoThueHoaDon { get; set; }
+        public bool DaGuiHoaDon { get; set; }
 
         // Chi tiết
         public List<ChiTietDatTour> ChiTietTours { get; set; }

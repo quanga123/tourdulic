@@ -16,6 +16,8 @@
         {
             <input type="hidden" name="ID_DatTour" value="@Model.ID_DatTour.Value" />
         }
+        <input type="hidden" name="YeuCauXuatHoaDon" value="@Model.YeuCauXuatHoaDon.ToString().ToLower()" />
+        <input type="hidden" name="MaSoThueHoaDon" value="@Model.MaSoThueHoaDon" />
 
         <div class="row mb-3">
             <div class="col-md-6">
@@ -40,6 +42,17 @@
         </div>
 
         <h3 class="mt-5 mb-3">Thanh toán chuyển khoản</h3>
+        <div class="alert @(Model.YeuCauXuatHoaDon ? "alert-info" : "alert-light") border">
+            <i class="bi @(Model.YeuCauXuatHoaDon ? "bi-receipt" : "bi-receipt-cutoff") me-1"></i>
+            @Html.Raw(Model.YeuCauXuatHoaDon
+                ? "Kh&#225;ch y&#234;u c&#7847;u xu&#7845;t h&#243;a &#273;&#417;n. H&#243;a &#273;&#417;n s&#7869; &#273;&#432;&#7907;c g&#7917;i sau khi &#273;&#417;n &#273;&#432;&#7907;c x&#225;c nh&#7853;n."
+                : "Kh&#225;ch kh&#244;ng y&#234;u c&#7847;u xu&#7845;t h&#243;a &#273;&#417;n.")
+            @if (Model.YeuCauXuatHoaDon && !string.IsNullOrWhiteSpace(Model.MaSoThueHoaDon))
+            {
+                <div class="mt-2"><strong>MST:</strong> @Model.MaSoThueHoaDon</div>
+            }
+        </div>
+
         <input type="hidden" name="PhuongThucThanhToan" value="@AppConstants.ThanhToan.ChuyenKhoan" />
         <div class="border rounded p-3 mb-4 bg-light">
             <div class="row g-3">

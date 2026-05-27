@@ -33,6 +33,13 @@ namespace TourDulich.Models
 
         public bool CoYeuCauHuy { get; set; } = false;
 
+        public bool YeuCauXuatHoaDon { get; set; } = false;
+
+        [StringLength(30)]
+        public string MaSoThueHoaDon { get; set; }
+
+        public bool DaGuiHoaDon { get; set; } = false;
+
         /// <summary>Khách lẻ / Đoàn</summary>
         [StringLength(20)]
         public string LoaiDat { get; set; } = AppConstants.LoaiDat.KhachLe;

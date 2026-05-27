@@ -33,5 +33,7 @@ namespace TourDulich.ModelView
         public string GhiChuDiemDon { get; set; }
         public bool CanXacNhanDiemDon { get; set; }
         public decimal? ThanhTienCoDiemDon => SoLuong * ((GiaThucTe ?? Gia ?? 0) + (PhuThuDiemDon ?? 0));
+        public bool YeuCauXuatHoaDon { get; set; }
+        public string MaSoThueHoaDon { get; set; }
     }
 }

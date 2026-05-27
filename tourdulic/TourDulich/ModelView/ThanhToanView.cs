@@ -12,5 +12,7 @@ namespace TourDulich.ModelView
         public List<TourDaDatTamThoi> DanhSachTour { get; set; }
         public NguoiDung UserInfo { get; set; }
         public string PhuongThucThanhToan { get; set; }
+        public bool YeuCauXuatHoaDon { get; set; }
+        public string MaSoThueHoaDon { get; set; }
     }
 }

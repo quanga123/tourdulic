@@ -45,7 +45,10 @@ namespace TourDulich.Areas.Admin.Controllers
                     LoaiDat       = dt.LoaiDat,
                     TruongDoan    = dt.TruongDoan,
                     SdtTruongDoan = dt.SdtTruongDoan,
-                    GhiChuDoan    = dt.GhiChuDoan
+                    GhiChuDoan    = dt.GhiChuDoan,
+                    YeuCauXuatHoaDon = dt.YeuCauXuatHoaDon,
+                    MaSoThueHoaDon = dt.MaSoThueHoaDon,
+                    DaGuiHoaDon = dt.DaGuiHoaDon
                 }).ToList();
 
 
@@ -93,6 +96,7 @@ namespace TourDulich.Areas.Admin.Controllers
                 datTour.GhiChu = GhiChu;
                 _contextDB.SaveChanges();
                 SendBookingResultEmail(ID_DatTour);
+                TrySendInvoiceIfNeeded(ID_DatTour);
 
                 return Json(new { success = true });
             }
@@ -189,29 +193,6 @@ namespace TourDulich.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult XoaDatTour(int id)
-        {
-            try
-            {
-                var datTour = _contextDB.DatTours.Find(id);
-                if (datTour == null)
-                    return Json(new { success = false, message = "Không tìm thấy đơn đặt tour." });
-
-                var chiTiets = _contextDB.ChiTietDatTours.Where(c => c.ID_DatTour == id).ToList();
-                _contextDB.ChiTietDatTours.RemoveRange(chiTiets);
-
-                _contextDB.DatTours.Remove(datTour);
-                _contextDB.SaveChanges();
-
-                return Json(new { success = true });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-        }
-
         private void SendBookingResultEmail(int idDatTour)
         {
             try
@@ -229,6 +210,36 @@ namespace TourDulich.Areas.Admin.Controllers
             catch
             {
                 // Không để lỗi email làm hỏng thao tác xử lý đơn của admin.
+            }
+        }
+
+        private void TrySendInvoiceIfNeeded(int idDatTour)
+        {
+            try
+            {
+                var datTour = _contextDB.DatTours
+                    .Include("NguoiDung")
+                    .Include("ChiTietDatTours.Tour")
+                    .FirstOrDefault(d => d.ID_DatTour == idDatTour);
+
+                if (datTour == null
+                    || !datTour.YeuCauXuatHoaDon
+                    || datTour.DaGuiHoaDon
+                    || datTour.TrangThai != AppConstants.TrangThaiDatTour.DaXacNhan)
+                {
+                    return;
+                }
+
+                string errorMessage;
+                if (EmailService.TrySendInvoiceToCustomer(datTour, out errorMessage))
+                {
+                    datTour.DaGuiHoaDon = true;
+                    _contextDB.SaveChanges();
+                }
+            }
+            catch
+            {
+                // Khong de loi email hoa don lam hong thao tac xu ly don.
             }
         }
     }
